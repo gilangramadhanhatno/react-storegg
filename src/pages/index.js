@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
-import "../assets/style/index.css";
 import AOS from "aos";
+
+import Navbar from "../components/Navbar";
 import MainBanner from "../components/MainBanner";
+import Feature from "../components/Feature";
+
+import "../assets/style/index.css";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -14,6 +17,7 @@ export default function LandingPage() {
     <>
       <Navbar />
       <MainBanner />
+      <Feature />
     </>
   );
 }
