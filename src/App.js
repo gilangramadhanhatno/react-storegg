@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,10 +10,18 @@ import "./assets/style/utilities.css";
 // import "./assets/style/globals.css";
 // import "./assets/style/Home.module.css";
 
+import AOS from "aos";
+
 import LandingPage from "./pages";
 import DetailPage from "./pages/DetailPage";
+import SignIn from "./pages/SignIn";
 
 function App() {
+  useEffect(() => {
+    //  AOS Animation
+    AOS.init();
+  }, []);
+
   return (
     <div className="App">
       <Routes>
@@ -21,7 +29,7 @@ function App() {
         <Route path="detail-page">
           <Route path=":id" element={<DetailPage />} />
         </Route>
-        {/* <Route path="/detail-page/:id" element={<DetailPage />} /> */}
+        <Route path="sign-in" element={<SignIn />} />
       </Routes>
     </div>
   );

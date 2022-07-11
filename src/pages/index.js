@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
+import React from "react";
 
 import Navbar from "../components/Navbar";
 import MainBanner from "../components/MainBanner";
@@ -12,11 +11,6 @@ import Footer from "../components/Footer";
 import "../assets/style/index.css";
 
 export default function LandingPage() {
-  useEffect(() => {
-    //  AOS Animation
-    AOS.init();
-  }, []);
-
   return (
     <>
       <Navbar />
