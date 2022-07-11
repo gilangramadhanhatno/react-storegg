@@ -16,6 +16,7 @@ import LandingPage from "./pages";
 import DetailPage from "./pages/DetailPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import SignUpPhoto from "./pages/SignUpPhoto";
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
         </Route>
         <Route path="sign-in" element={<SignIn />} />
         <Route path="sign-up" element={<SignUp />} />
+        <Route path="sign-up-photo" element={<SignUpPhoto />} />
       </Routes>
     </div>
   );

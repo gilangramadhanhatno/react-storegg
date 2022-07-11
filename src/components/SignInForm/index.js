@@ -19,7 +19,7 @@ export default function SignInForm() {
         <input type="password" className="form-control rounded-pill text-lg" id="password" name="password" aria-describedby="password" placeholder="Your password" />
       </div>
       <div className="button-group d-flex flex-column mx-auto pt-50">
-        <button className="btn btn-signin fw-medium text-lg text-white rounded-pill mb-16" href="../index.html" role="button">
+        <button type="button" className="btn btn-signin fw-medium text-lg text-white rounded-pill mb-16" href="../index.html" role="button">
           Continue to Sign In
         </button>
         <Link to="/sign-up" className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill">
