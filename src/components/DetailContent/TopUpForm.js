@@ -1,8 +1,8 @@
 import React from "react";
+import NumberFormat from "react-number-format";
 
 export default function TopUpForm(props) {
   const { data } = props;
-  console.log(data);
 
   return (
     <>
@@ -33,7 +33,9 @@ export default function TopUpForm(props) {
                       <path d="M5.83301 10L8.46459 12.5L14.1663 7.5" stroke="#00BAFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
-                  <p className="text-lg color-palette-1 m-0">{nominal.price}</p>
+                  <p className="text-lg color-palette-1 m-0">
+                    <NumberFormat value={nominal.price} prefix="Rp. " displayType="text" decimalSeparator="," thousandSeparator="." />
+                  </p>
                 </div>
               </label>
             );
