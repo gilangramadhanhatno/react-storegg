@@ -22,10 +22,8 @@ export default function SignInForm() {
         <button className="btn btn-signin fw-medium text-lg text-white rounded-pill mb-16" href="../index.html" role="button">
           Continue to Sign In
         </button>
-        <Link to="/sign-up">
-          <button className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill" role="button">
-            Sign Up
-          </button>
+        <Link to="/sign-up" className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill">
+          Sign Up
         </Link>
       </div>
     </>

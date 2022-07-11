@@ -15,6 +15,7 @@ import AOS from "aos";
 import LandingPage from "./pages";
 import DetailPage from "./pages/DetailPage";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
           <Route path=":id" element={<DetailPage />} />
         </Route>
         <Route path="sign-in" element={<SignIn />} />
+        <Route path="sign-up" element={<SignUp />} />
       </Routes>
     </div>
   );
