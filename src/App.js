@@ -18,7 +18,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="detail-page">
+          <Route path=":id" element={<DetailPage />} />
+        </Route>
+        {/* <Route path="/detail-page/:id" element={<DetailPage />} /> */}
       </Routes>
     </div>
   );
