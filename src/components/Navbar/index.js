@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Auth from "./Auth";
 
 export default function Navbar() {
   return (
@@ -32,29 +33,19 @@ export default function Navbar() {
               <Link to="/" className="link">
                 <li className="nav-item my-auto active">Home</li>
               </Link>
-
               <Link to="#featured" className="link">
                 <li className="nav-item my-auto">Games</li>
               </Link>
-
               <Link to="/rewards" className="link">
                 <li className="nav-item my-auto">Rewards</li>
               </Link>
-
               <Link to="/discover" className="link">
                 <li className="nav-item my-auto">Discover</li>
               </Link>
               <Link to="/global-rank" className="link">
                 <li className="nav-item my-auto me-lg-20">Global Rank</li>
               </Link>
-
-              <Link to="/sign-in" className="sign-in">
-                <li className="nav-item my-auto">
-                  <button type="button" className="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill" role="button">
-                    Sign In
-                  </button>
-                </li>
-              </Link>
+              <Auth />
             </ul>
           </div>
         </div>
