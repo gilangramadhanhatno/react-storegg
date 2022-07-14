@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="detail-page">
@@ -41,7 +41,7 @@ function App() {
         <Route path="sign-up-success" element={<SignUpSuccess />} />
       </Routes>
       <ToastContainer />
-    </div>
+    </>
   );
 }
 

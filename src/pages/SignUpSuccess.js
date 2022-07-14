@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import IllustrationSuccess from "../assets/img/Sign-up-success-1.png";
 import "../assets/style/sign-up-success.css";
-// import { Link } from "react-router-dom";
 
 export default function SignUpSuccess() {
   return (
