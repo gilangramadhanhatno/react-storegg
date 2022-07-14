@@ -1,24 +1,33 @@
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
     avatar: "",
   });
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const token = Cookies.get("tkn");
     if (token) {
       const jwtToken = atob(token);
       const payload = jwtDecode(jwtToken);
-      const user = payload.player;
-      user.avatar = `https://bwamern-storegg-backend.herokuapp.com/uploads/${user.avatar}`;
+      const userFromPayload = payload.player;
+      user.avatar = `https://bwamern-storegg-backend.herokuapp.com/uploads/${userFromPayload.avatar}`;
       setIsLogin(true);
       setUser(user);
     }
   }, []);
+
+  const onLogout = () => {
+    Cookies.remove("tkn");
+    navigate("/");
+    setIsLogin(false);
+  };
 
   if (isLogin) {
     return (
@@ -45,8 +54,8 @@ export default function Auth() {
                 Account Settings
               </Link>
             </li>
-            <li>
-              <a className="dropdown-item text-lg color-palette-2" href="#">
+            <li onClick={onLogout}>
+              <a className="dropdown-item text-lg color-palette-2" href="">
                 Log Out
               </a>
             </li>
