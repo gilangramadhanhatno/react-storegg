@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/style/fonts.css";
 import "./assets/style/utilities.css";
+import "./assets/style/navbar-log-in.css";
 // import "./assets/style/globals.css";
 // import "./assets/style/Home.module.css";
 
