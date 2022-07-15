@@ -69,18 +69,6 @@ export default function SignUpPhoto() {
     }
   };
 
-  // useEffect(() => {
-  //   const getGameCategoryAPI = async () => {
-  //     try {
-  //       const response = await axios.get("https://bwamern-storegg-backend.herokuapp.com/api/v1/players/category");
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   getGameCategoryAPI();
-  // }, []);
-
   return (
     <section className="sign-up-photo mx-auto pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">

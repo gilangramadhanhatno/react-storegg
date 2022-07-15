@@ -1,4 +1,7 @@
 /* Sign-in */
+.sign-up-photo {
+  height: 100vh;
+}
 .sign-up-photo .image-upload > input {
   visibility: hidden;
   width: 0;

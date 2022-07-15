@@ -8,6 +8,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/style/fonts.css";
 import "./assets/style/navbar-log-in.css";
 import "./assets/style/checkout.css";
+import "./assets/style/404-not-found.css";
 import "./assets/style/utilities.css";
 // import "./assets/style/globals.css";
 // import "./assets/style/Home.module.css";
@@ -21,6 +22,7 @@ import SignUp from "./pages/SignUp";
 import SignUpPhoto from "./pages/SignUpPhoto";
 import SignUpSuccess from "./pages/SignUpSuccess";
 import Checkout from "./pages/Checkout";
+import NotFound from "./pages/NotFound";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -43,6 +45,7 @@ function App() {
         <Route path="sign-up-photo" element={<SignUpPhoto />} />
         <Route path="sign-up-success" element={<SignUpSuccess />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />
     </>
