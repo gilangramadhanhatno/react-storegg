@@ -26,6 +26,7 @@ import NotFound from "./pages/NotFound";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   useEffect(() => {
@@ -44,7 +45,14 @@ function App() {
         <Route path="sign-up" element={<SignUp />} />
         <Route path="sign-up-photo" element={<SignUpPhoto />} />
         <Route path="sign-up-success" element={<SignUpSuccess />} />
-        <Route path="checkout" element={<Checkout />} />
+        <Route
+          path="checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />

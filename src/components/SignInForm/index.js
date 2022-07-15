@@ -1,8 +1,8 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie";
 
 export default function SignInForm() {
   const [email, setEmail] = useState("");
