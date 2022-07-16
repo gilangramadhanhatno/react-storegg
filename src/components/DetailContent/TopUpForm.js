@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import NumberFormat from "react-number-format";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function TopUpForm(props) {
   const { data } = props;
+  const [verifyID, setVerifyID] = useState("");
+  const [bankAccountName, setBankAccountName] = useState("");
+  const [nominalMethod, setNominalMethod] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState({});
+  const navigate = useNavigate();
+
+  const onNominalItemChange = (data) => {
+    setNominalMethod(data);
+  };
+
+  const onPaymentItemChange = (payment, bank) => {
+    const data = {
+      payment,
+      bank,
+    };
+    setPaymentMethod(data);
+  };
+
+  const onSubmit = () => {
+    if (verifyID === "" || bankAccountName === "" || nominalMethod === {} || nominalMethod === "" || paymentMethod === {}) {
+      toast.error("Silahkan isi semua data");
+    } else {
+      const data = {
+        verifyID,
+        bankAccountName,
+        nominalMethod,
+        paymentMethod,
+      };
+      localStorage.setItem("data-topup", JSON.stringify(data));
+      navigate("/checkout");
+    }
+  };
 
   return (
     <>
@@ -11,7 +45,7 @@ export default function TopUpForm(props) {
           <label htmlFor="ID" className="form-label text-lg fw-medium color-palette-1 mb-10">
             Verify ID
           </label>
-          <input type="text" className="form-control rounded-pill text-lg" id="ID" name="ID" aria-describedby="verifyID" placeholder="Enter your ID" />
+          <input type="text" className="form-control rounded-pill text-lg" id="ID" name="ID" aria-describedby="verifyID" placeholder="Enter your ID" value={verifyID} onChange={(event) => setVerifyID(event.target.value)} />
         </div>
       </div>
       <div className="pt-md-50 pb-md-50 pt-30 pb-20">
@@ -19,7 +53,7 @@ export default function TopUpForm(props) {
         <div className="row justify-content-between">
           {data?.voucher?.nominals.map((nominal) => {
             return (
-              <label key={nominal._id} className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10" htmlFor={nominal._id}>
+              <label key={nominal._id} className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10" htmlFor={nominal._id} onChange={() => onNominalItemChange(nominal)}>
                 <input className="d-none" type="radio" id={nominal._id} name="topup" value={nominal._id} />
                 <div className="detail-card">
                   <div className="d-flex justify-content-between">
@@ -51,7 +85,7 @@ export default function TopUpForm(props) {
               return pymnt.banks.map((bank) => {
                 return (
                   <label key={bank._id} className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10" htmlFor={bank._id}>
-                    <input className="d-none" type="radio" id={bank._id} name="paymentMethod" value={bank._id} />
+                    <input className="d-none" type="radio" id={bank._id} name="paymentMethod" value={bank._id} onChange={() => onPaymentItemChange(pymnt, bank)} />
                     <div className="detail-card">
                       <div className="d-flex justify-content-between">
                         <p className="text-3xl color-palette-1 fw-medium m-0">{pymnt.type}</p>
@@ -74,13 +108,19 @@ export default function TopUpForm(props) {
         <label htmlFor="bankAccount" className="form-label text-lg fw-medium color-palette-1 mb-10">
           Bank Account Name
         </label>
-        <input type="text" className="form-control rounded-pill text-lg" id="bankAccount" name="bankAccount" aria-describedby="bankAccount" placeholder="Enter your Bank Account Name" />
+        <input
+          type="text"
+          className="form-control rounded-pill text-lg"
+          id="bankAccount"
+          name="bankAccount"
+          aria-describedby="bankAccount"
+          placeholder="Enter your Bank Account Name"
+          value={bankAccountName}
+          onChange={(event) => setBankAccountName(event.target.value)}
+        />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
-        {/* <a href="./checkout.html" type="submit" className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg">
-          Continue
-        </a> */}
-        <button type="button" className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg">
+        <button type="button" className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg" onClick={onSubmit}>
           Continue
         </button>
       </div>

@@ -15,6 +15,7 @@ export default function DetailContent() {
       setLoading(true);
       try {
         const response = await axios.get(`https://bwamern-storegg-backend.herokuapp.com/api/v1/players/detail-page/${id}`);
+        localStorage.setItem("data-item", JSON.stringify(response.data.data.voucher));
         setGame(response.data.data);
         setLoading(false);
       } catch (error) {
