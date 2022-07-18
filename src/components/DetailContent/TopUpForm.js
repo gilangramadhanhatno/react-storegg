@@ -7,8 +7,8 @@ export default function TopUpForm(props) {
   const { data } = props;
   const [verifyID, setVerifyID] = useState("");
   const [bankAccountName, setBankAccountName] = useState("");
-  const [nominalMethod, setNominalMethod] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState({});
+  const [nominalMethod, setNominalMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
   const navigate = useNavigate();
 
   const onNominalItemChange = (data) => {
@@ -24,7 +24,7 @@ export default function TopUpForm(props) {
   };
 
   const onSubmit = () => {
-    if (verifyID === "" || bankAccountName === "" || nominalMethod === {} || nominalMethod === "" || paymentMethod === {}) {
+    if (verifyID === "" || bankAccountName === "" || nominalMethod === "" || nominalMethod === "" || paymentMethod === "") {
       toast.error("Silahkan isi semua data");
     } else {
       const data = {
