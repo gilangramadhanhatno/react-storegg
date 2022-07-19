@@ -72,7 +72,6 @@ export default function CheckoutConfirmation() {
       } else {
         toast.success("Checkout Berhasil");
         navigate("/complete-checkout");
-        console.log("data: ", data);
       }
     }
   };

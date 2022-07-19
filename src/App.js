@@ -8,6 +8,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/style/fonts.css";
 import "./assets/style/navbar-log-in.css";
 import "./assets/style/checkout.css";
+import "./assets/style/complete-checkout.css";
 import "./assets/style/404-not-found.css";
 import "./assets/style/utilities.css";
 // import "./assets/style/globals.css";
@@ -27,6 +28,7 @@ import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./routes/PrivateRoute";
+import CompleteCheckout from "./pages/CompleteCheckout";
 
 function App() {
   useEffect(() => {
@@ -53,6 +55,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="complete-checkout" element={<CompleteCheckout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />
