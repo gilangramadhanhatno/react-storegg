@@ -17,10 +17,10 @@ export default function CompleteCheckout() {
           </p>
         </div>
         <div className="button-group d-flex flex-column mx-auto">
-          <Link to="/member/overview" className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16">
+          <Link to="/member" className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16">
             My Dashboard
           </Link>
-          <a className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill" href="/" role="button">
+          <a className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill" href="https://wa.me/6281210657874?text=Saya%20sudah%20melakukan%20pembayaran" role="button">
             WhatsApp ke Admin
           </a>
         </div>
