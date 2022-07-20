@@ -1,12 +1,13 @@
 import React from "react";
-import IcDesktop from "../../assets/icon/icon-desktop.svg";
-import IcMobile from "../../assets/icon/icon-mobile.svg";
+import Desktop from "../../assets/icon/icon-desktop.svg";
+import Mobile from "../../assets/icon/icon-mobile.svg";
+
 import MobileLegends from "../../assets/img/overview-1.png";
 import COD from "../../assets/img/overview-2.png";
 import COC from "../../assets/img/overview-3.png";
 import Valorant from "../../assets/img/overview-4.png";
 
-export default function ContentOverview() {
+export default function OverviewContent() {
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -18,7 +19,7 @@ export default function ContentOverview() {
               <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
                 <div className="categories-card">
                   <div className="d-flex align-items-center mb-24">
-                    <img src={IcDesktop} alt="Icon Desktop" />
+                    <img src={Desktop} alt="Icon Desktop" />
                     <p className="color-palette-1 mb-0 ms-12">
                       Game
                       <br /> Desktop
@@ -33,7 +34,7 @@ export default function ContentOverview() {
               <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
                 <div className="categories-card">
                   <div className="d-flex align-items-center mb-24">
-                    <img src={IcMobile} alt="Icon Mobile" />
+                    <img src={Mobile} alt="Icon Mobile" />
                     <p className="color-palette-1 mb-0 ms-12">
                       Game
                       <br /> Mobile
@@ -48,7 +49,7 @@ export default function ContentOverview() {
               <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
                 <div className="categories-card">
                   <div className="d-flex align-items-center mb-24">
-                    <img src={IcDesktop} alt="Icon Other" />
+                    <img src={Desktop} alt="Other" />
 
                     <p className="color-palette-1 mb-0 ms-12">
                       Other

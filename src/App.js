@@ -25,13 +25,13 @@ import SignUp from "./pages/SignUp";
 import SignUpPhoto from "./pages/SignUpPhoto";
 import SignUpSuccess from "./pages/SignUpSuccess";
 import Checkout from "./pages/Checkout";
+import CompleteCheckout from "./pages/CompleteCheckout";
+import Overview from "./pages/member";
 import NotFound from "./pages/NotFound";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./routes/PrivateRoute";
-import CompleteCheckout from "./pages/CompleteCheckout";
-import Overview from "./pages/Member";
 
 function App() {
   useEffect(() => {

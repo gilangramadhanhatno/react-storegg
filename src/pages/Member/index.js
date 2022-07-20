@@ -1,12 +1,12 @@
 import React from "react";
-import Sidebar from "../../components/Dashboard/Sidebar";
-import ContentOverview from "../../components/Dashboard/ContentOverview";
+import OverviewContent from "../../components/OverViewContent";
+import Sidebar from "../../components/Sidebar";
 
 export default function Overview() {
   return (
     <section className="overview overflow-auto">
-      <Sidebar />
-      <ContentOverview />
+      <Sidebar activeMenu="overview" />
+      <OverviewContent />
     </section>
   );
 }
