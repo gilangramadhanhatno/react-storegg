@@ -61,8 +61,23 @@ function App() {
           }
         />
         <Route path="complete-checkout" element={<CompleteCheckout />} />
-        <Route path="member" element={<Overview />} />
-        <Route path="/member/transactions" element={<Transactions />} />
+
+        <Route
+          path="member"
+          element={
+            <PrivateRoute>
+              <Overview />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/member/transactions"
+          element={
+            <PrivateRoute>
+              <Transactions />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />
