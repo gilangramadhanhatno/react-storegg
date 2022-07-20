@@ -12,7 +12,7 @@ export default function MenuItem(props) {
   });
   return (
     <div className={className}>
-      <img src={`images/icon-menu-${icon}.svg`} alt="menu icon" className="icon me-3" />
+      <img src={`/assets/icon/icon-menu-${icon}.svg`} alt="menu icon" className="icon me-3" />
       <p className="item-title m-0">
         <Link to={href} className="text-lg text-decoration-none">
           {title}
@@ -24,7 +24,7 @@ export default function MenuItem(props) {
 
 MenuItem.propTypes = {
   icon: propTypes.string,
-  href: propTypes.string,
+  href: propTypes.bool,
   title: propTypes.string,
   active: propTypes.bool,
 };

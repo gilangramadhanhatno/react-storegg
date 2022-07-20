@@ -11,6 +11,7 @@ import "./assets/style/checkout.css";
 import "./assets/style/complete-checkout.css";
 import "./assets/style/sidebar.css";
 import "./assets/style/overview.css";
+import "./assets/style/transactions.css";
 import "./assets/style/404-not-found.css";
 import "./assets/style/utilities.css";
 // import "./assets/style/globals.css";
@@ -27,6 +28,7 @@ import SignUpSuccess from "./pages/SignUpSuccess";
 import Checkout from "./pages/Checkout";
 import CompleteCheckout from "./pages/CompleteCheckout";
 import Overview from "./pages/member";
+import Transactions from "./pages/member/transactions";
 import NotFound from "./pages/NotFound";
 
 import { ToastContainer } from "react-toastify";
@@ -60,6 +62,7 @@ function App() {
         />
         <Route path="complete-checkout" element={<CompleteCheckout />} />
         <Route path="member" element={<Overview />} />
+        <Route path="/member/transactions" element={<Transactions />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />
