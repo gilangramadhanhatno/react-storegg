@@ -4,19 +4,25 @@ import { Link } from "react-router-dom";
 import cx from "classnames";
 
 export default function MenuItem(props) {
-  const { icon, href, title, active } = props;
+  const { icon, href, title, active, onClick } = props;
   const className = cx({
     item: true,
     "mb-30": true,
     active,
   });
   return (
-    <div className={className}>
+    <div className={className} onClick={onClick}>
       <img src={`/assets/icon/icon-menu-${icon}.svg`} alt="menu icon" className="icon me-3" />
       <p className="item-title m-0">
-        <Link to={href} className="text-lg text-decoration-none">
-          {title}
-        </Link>
+        {onClick ? (
+          <a href={href} className="text-lg text-decoration-none">
+            {title}
+          </a>
+        ) : (
+          <Link to={href} className="text-lg text-decoration-none" role="button">
+            {title}
+          </Link>
+        )}
       </p>
     </div>
   );
@@ -27,4 +33,5 @@ MenuItem.propTypes = {
   href: propTypes.bool,
   title: propTypes.string,
   active: propTypes.bool,
+  onClick: propTypes.bool,
 };
