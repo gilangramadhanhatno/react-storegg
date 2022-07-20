@@ -30,8 +30,8 @@ export default function MenuItem(props) {
 
 MenuItem.propTypes = {
   icon: propTypes.string,
-  href: propTypes.bool,
+  href: propTypes.string,
   title: propTypes.string,
   active: propTypes.bool,
-  onClick: propTypes.bool,
+  onClick: propTypes.func,
 };
