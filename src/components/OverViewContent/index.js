@@ -1,20 +1,19 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+import cx from "classnames";
 
-import Desktop from "../../assets/icon/icon-desktop.svg";
-import Mobile from "../../assets/icon/icon-mobile.svg";
-
-import MobileLegends from "../../assets/img/overview-1.png";
-import COD from "../../assets/img/overview-2.png";
-import COC from "../../assets/img/overview-3.png";
-import Valorant from "../../assets/img/overview-4.png";
 import NumberFormat from "react-number-format";
+import Desktop from "../../assets/icon/icon-desktop.svg";
 
 export default function OverviewContent() {
   const [count, setCount] = useState([]);
   const [data, setData] = useState([]);
+
+  const statusClass = cx({
+    "float-start icon-status": true,
+  });
 
   const getMemberOverview = async () => {
     const url = `https://bwamern-storegg-backend.herokuapp.com/api/v1/players/dashboard`;
@@ -111,90 +110,39 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="align-middle">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={MobileLegends} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">Mobile Legends: The New Battle 2021</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Desktop</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">200 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">Rp 290.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status pending"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Pending</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="align-middle text-center">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={COD} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">Call of Duty:Modern</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Desktop</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">550 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">Rp 740.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status success"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Success</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="align-middle text-center">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={COC} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">Clash of Clans</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Mobile</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">100 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">Rp 120.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status failed"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Failed</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="align-middle text-center">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={Valorant} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">The Royal Game</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Mobile</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">225 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium text-start color-palette-1 m-0">Rp 200.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status pending"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Pending</p>
-                    </div>
-                  </td>
-                </tr>
+                {data.map((item) => {
+                  return (
+                    <tr key={item._id} className="align-middle">
+                      <th scope="row">
+                        <img className="float-start me-3 mb-lg-0 mb-3" src={`https://bwamern-storegg-backend.herokuapp.com/uploads/${item.historyVoucherTopup.thumbnail}`} width="80" height="60" alt="" />
+                        <div className="game-title-header">
+                          <p className="game-title fw-medium text-start color-palette-1 m-0">{item.historyVoucherTopup.gameName}</p>
+                          <p className="text-xs fw-normal text-start color-palette-2 m-0">{item.historyVoucherTopup.category}</p>
+                        </div>
+                      </th>
+                      <td>
+                        <p className="fw-medium color-palette-1 m-0">
+                          {item.historyVoucherTopup.coinQuantity} {item.historyVoucherTopup.coinName}
+                        </p>
+                      </td>
+                      <td>
+                        <p className="fw-medium text-start color-palette-1 m-0">
+                          <NumberFormat value={item.value} prefix="Rp. " displayType="text" decimalSeparator="," thousandSeparator="." />
+                        </p>
+                      </td>
+                      <td>
+                        <div>
+                          <span
+                            className={`${statusClass} ${item.status === "pending" || item.status === "Pending" ? "pending" || "Pending" : ""} ${item.status === "success" || item.status === "Success" ? "success" || "Success" : ""} ${
+                              item.status === "failed" || item.status === "Failed" ? "failed" || "Failed" : ""
+                            }`}
+                          ></span>
+                          <p className="fw-medium text-start color-palette-1 m-0 position-relative">{item.status}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
