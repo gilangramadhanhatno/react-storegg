@@ -53,19 +53,15 @@ export default function TransactionsContent() {
   };
 
   useEffect(() => {
-    const getMemberTransactionsAPI =
-      (async () => {
-        const response = await getMemberTransactions();
-        if (response.error) {
-          toast.error(response.message);
-        } else {
-          console.log("Data: ", response);
-          setTotal(response.data.total);
-          setTransactions(response.data.data);
-        }
-      },
-      []);
-    return getMemberTransactionsAPI();
+    (async () => {
+      const response = await getMemberTransactions();
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        setTotal(response.data.total);
+        setTransactions(response.data.data);
+      }
+    })();
   }, []);
 
   return (
