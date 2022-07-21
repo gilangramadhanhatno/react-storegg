@@ -1,17 +1,82 @@
-import React from "react";
-import MobileLegends from "../../assets/img/overview-1.png";
-import COD from "../../assets/img/overview-2.png";
-import COC from "../../assets/img/overview-3.png";
-import Valorant from "../../assets/img/overview-4.png";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import cx from "classnames";
+
+import NumberFormat from "react-number-format";
 
 export default function TransactionsContent() {
+  const [total, setTotal] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+
+  const statusClass = cx({
+    "float-start icon-status": true,
+  });
+
+  const getMemberTransactions = async () => {
+    const url = `https://bwamern-storegg-backend.herokuapp.com/api/v1/players/history`;
+
+    let headers = {};
+    const tokenCookies = Cookies.get("tkn");
+    if (tokenCookies) {
+      const jwtToken = atob(tokenCookies);
+      headers = {
+        Authorization: `Bearer ${jwtToken}`,
+      };
+    }
+
+    const response = await axios({
+      url,
+      method: "GET",
+      headers,
+      token: true,
+    }).catch((error) => error.response);
+
+    if (response.status > 300) {
+      const res = {
+        error: true,
+        message: response.data.message,
+        data: null,
+      };
+      return res;
+    }
+
+    const { length } = Object.keys(response.data);
+
+    const res = {
+      error: false,
+      message: "success",
+      data: length > 1 ? response.data : response.data.data,
+    };
+    return res;
+  };
+
+  useEffect(() => {
+    const getMemberTransactionsAPI =
+      (async () => {
+        const response = await getMemberTransactions();
+        if (response.error) {
+          toast.error(response.message);
+        } else {
+          console.log("Data: ", response);
+          setTotal(response.data.total);
+          setTransactions(response.data.data);
+        }
+      },
+      []);
+    return getMemberTransactionsAPI();
+  }, []);
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
         <h2 className="text-4xl fw-bold color-palette-1 mb-30">My Transactions</h2>
         <div className="mb-30">
           <p className="text-lg color-palette-2 mb-12">You’ve spent</p>
-          <h3 className="text-5xl fw-medium color-palette-1">Rp 4.518.000.500</h3>
+          <h3 className="text-5xl fw-medium color-palette-1">
+            <NumberFormat value={total} prefix="Rp. " displayType="text" decimalSeparator="," thousandSeparator="." />
+          </h3>
         </div>
         <div className="row mt-30 mb-20">
           <div className="col-lg-12 col-12 main-content">
@@ -47,110 +112,42 @@ export default function TransactionsContent() {
                 </tr>
               </thead>
               <tbody id="list_status_item">
-                <tr data-category="pending" className="align-middle">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={MobileLegends} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">Mobile Legends: The New Battle 2021</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Desktop</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">200 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">Rp 290.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status pending"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Pending</p>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="../member/transactions-detail.html" className="btn btn-status rounded-pill text-sm">
-                      Details
-                    </a>
-                  </td>
-                </tr>
-                <tr data-category="success" className="align-middle">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={COD} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">Call of Duty:Modern</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Desktop</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">550 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">Rp 740.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status success"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Success</p>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="../member/transactions-detail.html" className="btn btn-status rounded-pill text-sm">
-                      Details
-                    </a>
-                  </td>
-                </tr>
-                <tr data-category="failed" className="align-middle">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={COC} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">Clash of Clans</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Mobile</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">100 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">Rp 120.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status failed"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Failed</p>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="../member/transactions-detail.html" className="btn btn-status rounded-pill text-sm">
-                      Details
-                    </a>
-                  </td>
-                </tr>
-                <tr data-category="pending" className="align-middle">
-                  <th scope="row">
-                    <img className="float-start me-3 mb-lg-0 mb-3" src={Valorant} width="80" height="60" alt="" />
-                    <div className="game-title-header">
-                      <p className="game-title fw-medium text-start color-palette-1 m-0">The Royal Game</p>
-                      <p className="text-xs fw-normal text-start color-palette-2 m-0">Mobile</p>
-                    </div>
-                  </th>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">225 Gold</p>
-                  </td>
-                  <td>
-                    <p className="fw-medium color-palette-1 m-0">Rp 200.000</p>
-                  </td>
-                  <td>
-                    <div>
-                      <span className="float-start icon-status pending"></span>
-                      <p className="fw-medium text-start color-palette-1 m-0 position-relative">Pending</p>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="../member/transactions-detail.html" className="btn btn-status rounded-pill text-sm">
-                      Details
-                    </a>
-                  </td>
-                </tr>
+                {transactions.map((transaction) => {
+                  return (
+                    <tr key={transaction._id} data-category="pending" className="align-middle">
+                      <th scope="row">
+                        <img className="float-start me-3 mb-lg-0 mb-3" src={`https://bwamern-storegg-backend.herokuapp.com/uploads/${transaction.historyVoucherTopup.thumbnail}`} width="80" height="60" alt="" />
+                        <div className="game-title-header">
+                          <p className="game-title fw-medium text-start color-palette-1 m-0">{transaction.historyVoucherTopup.gameName}</p>
+                          <p className="text-xs fw-normal text-start color-palette-2 m-0">{transaction.historyVoucherTopup.category}</p>
+                        </div>
+                      </th>
+                      <td>
+                        <p className="fw-medium color-palette-1 m-0">{`${transaction.historyVoucherTopup.coinQuantity} ${transaction.historyVoucherTopup.coinName}`}</p>
+                      </td>
+                      <td>
+                        <p className="fw-medium color-palette-1 m-0">
+                          <NumberFormat value={transaction.value} prefix="Rp. " displayType="text" decimalSeparator="," thousandSeparator="." />
+                        </p>
+                      </td>
+                      <td>
+                        <div>
+                          <span
+                            className={`${statusClass} ${transaction.status === "pending" || transaction.status === "Pending" ? "pending" || "Pending" : ""} ${
+                              transaction.status === "success" || transaction.status === "Success" ? "success" || "Success" : ""
+                            } ${transaction.status === "failed" || transaction.status === "Failed" ? "failed" || "Failed" : ""}`}
+                          ></span>
+                          <p className="fw-medium text-start color-palette-1 m-0 position-relative">{transaction.status}</p>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="../member/transactions-detail.html" className="btn btn-status rounded-pill text-sm">
+                          Details
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
