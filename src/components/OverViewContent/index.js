@@ -1,4 +1,8 @@
-import React from "react";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+
 import Desktop from "../../assets/icon/icon-desktop.svg";
 import Mobile from "../../assets/icon/icon-mobile.svg";
 
@@ -6,8 +10,60 @@ import MobileLegends from "../../assets/img/overview-1.png";
 import COD from "../../assets/img/overview-2.png";
 import COC from "../../assets/img/overview-3.png";
 import Valorant from "../../assets/img/overview-4.png";
+import NumberFormat from "react-number-format";
 
 export default function OverviewContent() {
+  const [count, setCount] = useState([]);
+  const [data, setData] = useState([]);
+
+  const getMemberOverview = async () => {
+    const url = `https://bwamern-storegg-backend.herokuapp.com/api/v1/players/dashboard`;
+
+    let headers = {};
+    const tokenCookies = Cookies.get("tkn");
+    if (tokenCookies) {
+      const jwtToken = atob(tokenCookies);
+      headers = {
+        Authorization: `Bearer ${jwtToken}`,
+      };
+    }
+
+    const response = await axios({
+      url,
+      method: "GET",
+      headers,
+      token: true,
+    }).catch((error) => error.response);
+
+    if (response.status > 300) {
+      const res = {
+        error: true,
+        message: response.data.message,
+        data: null,
+      };
+      return res;
+    }
+    const res = {
+      error: false,
+      message: "success",
+      data: response.data.count ? response.data : response.data.data,
+    };
+    return res;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const response = await getMemberOverview();
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        console.log("data: ", response.data);
+        setCount(response.data.count);
+        setData(response.data.data);
+      }
+    })();
+  }, []);
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -16,52 +72,27 @@ export default function OverviewContent() {
           <p className="text-lg fw-medium color-palette-1 mb-14">Top Up Categories</p>
           <div className="main-content">
             <div className="row">
-              <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
-                <div className="categories-card">
-                  <div className="d-flex align-items-center mb-24">
-                    <img src={Desktop} alt="Icon Desktop" />
-                    <p className="color-palette-1 mb-0 ms-12">
-                      Game
-                      <br /> Desktop
-                    </p>
+              {count.map((item) => {
+                return (
+                  <div key={item._id} className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
+                    <div className="categories-card">
+                      <div className="d-flex align-items-center mb-24">
+                        <img src={Desktop} alt="Icon Desktop" />
+                        <p className="color-palette-1 mb-0 ms-12">
+                          Game
+                          <br /> {item.name}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm color-palette-2 mb-1">Total Spent</p>
+                        <p className="text-2xl color-palette-1 fw-medium m-0">
+                          <NumberFormat value={item.value} prefix="Rp. " displayType="text" decimalSeparator="," thousandSeparator="." />
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm color-palette-2 mb-1">Total Spent</p>
-                    <p className="text-2xl color-palette-1 fw-medium m-0">Rp 18.000.500</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
-                <div className="categories-card">
-                  <div className="d-flex align-items-center mb-24">
-                    <img src={Mobile} alt="Icon Mobile" />
-                    <p className="color-palette-1 mb-0 ms-12">
-                      Game
-                      <br /> Mobile
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm color-palette-2 mb-1">Total Spent</p>
-                    <p className="text-2xl color-palette-1 fw-medium m-0">Rp 8.455.000</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
-                <div className="categories-card">
-                  <div className="d-flex align-items-center mb-24">
-                    <img src={Desktop} alt="Other" />
-
-                    <p className="color-palette-1 mb-0 ms-12">
-                      Other
-                      <br /> Categories
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm color-palette-2 mb-1">Total Spent</p>
-                    <p className="text-2xl color-palette-1 fw-medium m-0">Rp 5.000.000</p>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
