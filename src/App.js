@@ -12,6 +12,7 @@ import "./assets/style/complete-checkout.css";
 import "./assets/style/sidebar.css";
 import "./assets/style/overview.css";
 import "./assets/style/transactions.css";
+import "./assets/style/transactions-detail.css";
 import "./assets/style/404-not-found.css";
 import "./assets/style/utilities.css";
 // import "./assets/style/globals.css";
