@@ -1,12 +1,10 @@
-// import Cookies from "js-cookie";
 import React, { useCallback, useEffect, useState } from "react";
-// import axios from "axios";
 import { toast } from "react-toastify";
 import cx from "classnames";
-
 import NumberFormat from "react-number-format";
+import { Link } from "react-router-dom";
+
 import { getMemberTransactions } from "../../services/member";
-// import { getMemberTransactions } from "../../services/member";
 
 export default function TransactionsContent() {
   const [total, setTotal] = useState(0);
@@ -112,9 +110,9 @@ export default function TransactionsContent() {
                         </div>
                       </td>
                       <td>
-                        <a href="../member/transactions-detail.html" className="btn btn-status rounded-pill text-sm">
+                        <Link to={`/member/transactions/${transaction._id}`} className="btn btn-status rounded-pill text-sm">
                           Details
-                        </a>
+                        </Link>
                       </td>
                     </tr>
                   );

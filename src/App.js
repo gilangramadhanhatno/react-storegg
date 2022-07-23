@@ -29,6 +29,7 @@ import Checkout from "./pages/Checkout";
 import CompleteCheckout from "./pages/CompleteCheckout";
 import Overview from "./pages/member";
 import Transactions from "./pages/member/transactions";
+import DetailTransaction from "./pages/member/transactions/DetailTransaction";
 import NotFound from "./pages/NotFound";
 
 import { ToastContainer } from "react-toastify";
@@ -77,7 +78,17 @@ function App() {
               <Transactions />
             </PrivateRoute>
           }
-        />
+        ></Route>
+        <Route path="/member/transactions">
+          <Route
+            path=":id"
+            element={
+              <PrivateRoute>
+                <DetailTransaction />
+              </PrivateRoute>
+            }
+          />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />
