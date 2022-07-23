@@ -1,68 +1,43 @@
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import Cookies from "js-cookie";
+import React, { useCallback, useEffect, useState } from "react";
+// import axios from "axios";
 import { toast } from "react-toastify";
 import cx from "classnames";
 
 import NumberFormat from "react-number-format";
+import { getMemberTransactions } from "../../services/member";
+// import { getMemberTransactions } from "../../services/member";
 
 export default function TransactionsContent() {
   const [total, setTotal] = useState(0);
   const [transactions, setTransactions] = useState([]);
+  const [tab, setTab] = useState("all");
 
   const statusClass = cx({
     "float-start icon-status": true,
   });
+  const btnClass = cx({
+    "btn btn-status rounded-pill text-sm me-3": true,
+  });
 
-  const getMemberTransactions = async () => {
-    const url = `https://bwamern-storegg-backend.herokuapp.com/api/v1/players/history`;
-
-    let headers = {};
-    const tokenCookies = Cookies.get("tkn");
-    if (tokenCookies) {
-      const jwtToken = atob(tokenCookies);
-      headers = {
-        Authorization: `Bearer ${jwtToken}`,
-      };
+  const getMemberTransactionsAPI = useCallback(async (value) => {
+    const response = await getMemberTransactions(value);
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      setTotal(response.data.total);
+      setTransactions(response.data.data);
     }
-
-    const response = await axios({
-      url,
-      method: "GET",
-      headers,
-      token: true,
-    }).catch((error) => error.response);
-
-    if (response.status > 300) {
-      const res = {
-        error: true,
-        message: response.data.message,
-        data: null,
-      };
-      return res;
-    }
-
-    const { length } = Object.keys(response.data);
-
-    const res = {
-      error: false,
-      message: "success",
-      data: length > 1 ? response.data : response.data.data,
-    };
-    return res;
-  };
+  }, []);
 
   useEffect(() => {
-    (async () => {
-      const response = await getMemberTransactions();
-      if (response.error) {
-        toast.error(response.message);
-      } else {
-        setTotal(response.data.total);
-        setTransactions(response.data.data);
-      }
-    })();
+    getMemberTransactionsAPI("all");
   }, []);
+
+  const onTabClick = (value) => {
+    setTab(value);
+    getMemberTransactionsAPI(value);
+  };
 
   return (
     <main className="main-wrapper">
@@ -77,18 +52,18 @@ export default function TransactionsContent() {
         <div className="row mt-30 mb-20">
           <div className="col-lg-12 col-12 main-content">
             <div id="list_status_title">
-              <a data-filter="*" href="/" className="btn btn-status rounded-pill text-sm btn-active me-3">
+              <button type="button" onClick={() => onTabClick("all")} className={`${btnClass} ${tab === "all" ? "btn-active" : ""}`}>
                 All Trx
-              </a>
-              <a data-filter="success" href="/" className="btn btn-status rounded-pill text-sm me-3">
+              </button>
+              <button type="button" onClick={() => onTabClick("success")} className={`${btnClass} ${tab === "success" ? "btn-active" : ""}`}>
                 Success
-              </a>
-              <a data-filter="pending" href="/" className="btn btn-status rounded-pill text-sm me-3">
+              </button>
+              <button type="button" onClick={() => onTabClick("pending")} className={`${btnClass} ${tab === "pending" ? "btn-active" : ""}`}>
                 Pending
-              </a>
-              <a data-filter="failed" href="/" className="btn btn-status rounded-pill text-sm me-3">
+              </button>
+              <button type="button" onClick={() => onTabClick("failed")} className={`${btnClass} ${tab === "failed" ? "btn-active" : ""}`}>
                 Failed
-              </a>
+              </button>
             </div>
           </div>
         </div>
