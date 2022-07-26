@@ -1,4 +1,5 @@
 import callAPI from "../config/api";
+// import { useParams } from "react-router-dom";
 
 const ROOT_API = "https://bwamern-storegg-backend.herokuapp.com";
 const API_VERSION = "api/v1";
@@ -18,6 +19,14 @@ export async function getMemberTransactions(valueParams) {
   });
 }
 
-export async function coba() {
+export async function getTransactionDetail() {
   return null;
+  // let { id } = useParams();
+  // const url = `${ROOT_API}/${API_VERSION}/players/history${id}/detail`;
+  // return callAPI({
+  //   url,
+  //   method: "GET",
+  //   token: true,
+  //   id,
+  // });
 }
