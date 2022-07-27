@@ -13,6 +13,7 @@ import "./assets/style/sidebar.css";
 import "./assets/style/overview.css";
 import "./assets/style/transactions.css";
 import "./assets/style/transactions-detail.css";
+import "./assets/style/edit-profile.css";
 import "./assets/style/404-not-found.css";
 import "./assets/style/utilities.css";
 // import "./assets/style/globals.css";
@@ -36,6 +37,7 @@ import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./routes/PrivateRoute";
+import Settings from "./pages/member/Settings";
 
 function App() {
   useEffect(() => {
@@ -90,6 +92,14 @@ function App() {
             }
           />
         </Route>
+        <Route
+          path="/member/settings"
+          element={
+            <PrivateRoute>
+              <Settings />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />

@@ -56,7 +56,6 @@ export default function DetailTransaction() {
       if (response.error) {
         toast.error(response.message);
       } else {
-        console.log(response.data);
         setData(response.data);
       }
     })();
