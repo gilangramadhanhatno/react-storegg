@@ -61,22 +61,6 @@ export default function DetailTransaction() {
     })();
   }, [id]);
 
-  //   useEffect(() => {
-  //     const getGame = async () => {
-  //       //   setLoading(true);
-  //       try {
-  //         const response = await axios.get(`https://bwamern-storegg-backend.herokuapp.com/api/v1/players/history/${id}/detail`);
-  //         console.log(response);
-  //         // localStorage.setItem("data-item", JSON.stringify(response.data.data.voucher));
-  //         // setGame(response.data.data);
-  //         // setLoading(false);
-  //       } catch (error) {
-  //         console.log(error.message);
-  //       }
-  //     };
-  //     getGame();
-  //   }, [id]);
-
   return (
     <section className="transactions-detail overflow-auto">
       {/* <Sidebar activeMenu="transactions" /> */}

@@ -38,7 +38,6 @@ export default function SettingsContent() {
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log("data: ", response);
       Cookies.remove("tkn");
       navigate("/sign-in");
     }
